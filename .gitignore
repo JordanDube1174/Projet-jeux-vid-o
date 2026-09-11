@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 Library/
 Temp/
 Obj/
@@ -7,13 +6,4 @@ UserSettings/
 .vs/
 bin/
 obj/
-=======
-Library/
-Temp/
-Obj/
-Logs/
-UserSettings/
-.vs/
-bin/
-obj/
->>>>>>> f7a394d4e58798d1349e9be0eb2737d48b74ee92
+
