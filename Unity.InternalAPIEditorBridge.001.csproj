@@ -43,7 +43,7 @@
     <UnityVersion>6000.6.0f1</UnityVersion>
   </PropertyGroup>
   <PropertyGroup>
-    <CodeAnalysisRuleSet>C:\Projet Jeux vidéo\Projet-jeux-vid-o\Library\ImmutablePackage.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>C:\Projet Personelle\Projet-jeux-vid-o\Library\ImmutablePackage.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\18\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
