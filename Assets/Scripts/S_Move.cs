@@ -1,25 +1,44 @@
+using System.Collections;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class S_Move : MonoBehaviour
 {
-    public S_DétectionSol détectionsol; //Le script de détection du sol
+    //Le script de détection du sol
+    public S_DétectionSol détectionsol;
+
+    //Variables pour le mouvement horizontal
     Vector2 direction = Vector2.zero;
     float vitesse = 6f;
 
+    //Rigidbody du joueur
     private Rigidbody2D rb;
+
+    // Variables pour le saut
     private bool jumpPressed;
     private bool jumpHeld;
 
     public float jumpForce = 12f;
 
+    //Variable pour le wall jump
+
+    public float wallSlideSpeed = 1.5f;     // Vitesse de glissade
+    public float wallJumpForce = 12f;       // Force du wall jump
+    public float wallJumpDirection = 1f;    // -1 = gauche, 1 = droite
+
+    [SerializeField] private Transform wallCheck;             // Petit point sur le côté du joueur
+    public float wallCheckDistance = 0.2f;  // Distance du raycast
+    [SerializeField] private LayerMask whatIsWall;            // Layer des murs
+    bool isWallSliding;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
     }
+
     //Pour courir
     void OnSprint(InputValue value)
     {
@@ -39,30 +58,59 @@ public class S_Move : MonoBehaviour
         direction = value.Get<Vector2>();
     }
 
-    //Pour Sauter
+    //Pour Sauter et wall jump
 
     void OnJump(InputValue value)
     {
         if (value.isPressed)
         {
-            Debug.Log("true");
-            jumpPressed = true;   // début du saut
-            jumpHeld = true;      // touche maintenue
+            jumpPressed = true;
+            jumpHeld = true;
+
+            // Wall Jump
+            if (isWallSliding)
+            {
+                float dir = transform.localScale.x > 0 ? -1 : 1;
+
+                rb.linearVelocity = new Vector2(dir * wallJumpForce, wallJumpForce);
+
+                return;
+            }
         }
         else
         {
-            Debug.Log("false");
-            jumpHeld = false;     // touche relâchée
+            jumpHeld = false;
         }
     }
 
+    //Vérifie si le joueur touche un mur
+    private bool CheckWall()
+    {
+        Vector2 dir = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
 
+        return Physics2D.Raycast(wallCheck.position, dir, wallCheckDistance, whatIsWall);
+    }
+
+    //Glisser sur le mur
+    void WallSlide()
+    {
+        if (CheckWall() && !détectionsol.touchesol)
+        {
+            isWallSliding = true;
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Clamp(rb.linearVelocity.y, -wallSlideSpeed, float.MaxValue));
+        }
+        else
+        {
+            isWallSliding = false;
+        }
+    }
 
 
     // Update is called once per frame
     void Update()
     {
-        
+            WallSlide();
+
     }
 
     void FixedUpdate()
@@ -82,7 +130,6 @@ public class S_Move : MonoBehaviour
             if (!jumpHeld)
             {
                 // relâché tôt → chute rapide
-                Debug.Log("allo");
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x,0);
             }
         }
