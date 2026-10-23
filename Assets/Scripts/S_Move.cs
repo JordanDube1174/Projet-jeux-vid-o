@@ -20,19 +20,19 @@ public class S_Move : MonoBehaviour
     private bool jumpPressed;
     private bool jumpHeld;
 
-    public float jumpForce = 12f;
+    public float jumpForce = 14f;
+
+    private int jumpCount = 0;
 
     //Variable pour le wall jump
 
     public float wallSlideSpeed = 1.5f;     // Vitesse de glissade
-    public float wallJumpForce = 12f;       // Force du wall jump
+    public float wallJumpForce = 30f;       // Force du wall jump
     public float wallJumpDirection = 1f;    // -1 = gauche, 1 = droite
 
     [SerializeField] private Transform wallCheck;             // Petit point sur le côté du joueur
-    public float wallCheckDistance = 0.2f;  // Distance du raycast
+    public float wallCheckDistance = 0.5f;  // Distance du raycast
     [SerializeField] private LayerMask whatIsWall;            // Layer des murs
-    bool isWallSliding;
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -58,71 +58,109 @@ public class S_Move : MonoBehaviour
         direction = value.Get<Vector2>();
     }
 
+
     //Pour Sauter et wall jump
 
     void OnJump(InputValue value)
     {
-        if (value.isPressed)
-        {
-            jumpPressed = true;
-            jumpHeld = true;
-
-            // Wall Jump
-            if (isWallSliding)
-            {
-                float dir = transform.localScale.x > 0 ? -1 : 1;
-
-                rb.linearVelocity = new Vector2(dir * wallJumpForce, wallJumpForce);
-
-                return;
-            }
-        }
-        else
+        if (!value.isPressed)
         {
             jumpHeld = false;
+            return;
+        }
+
+        jumpPressed = true;
+        jumpHeld = true;
+
+        int dir = GetWallJumpDirection();
+
+        // WALL JUMP
+        if (dir == 1)
+        {
+            rb.AddForce(new Vector2(-30f, 14f), ForceMode2D.Impulse);
+            return;
+        }
+        else if (dir == -1)
+        {
+            rb.AddForce(new Vector2(30f, 14f), ForceMode2D.Impulse);
+            return;
+        }
+
+        // SAUT NORMAL + DOUBLE JUMP
+        if (jumpCount < 1)
+        {
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            jumpCount++;
+            Debug.Log(jumpCount);
         }
     }
 
-    //Vérifie si le joueur touche un mur
-    private bool CheckWall()
+    private int GetWallJumpDirection()
     {
-        Vector2 dir = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
-
-        return Physics2D.Raycast(wallCheck.position, dir, wallCheckDistance, whatIsWall);
+            if (Physics2D.Raycast(wallCheck.position, Vector2.right, 0.52f, whatIsWall))
+            {
+                return 1; // Mur à droite
+            }
+            else if (Physics2D.Raycast(wallCheck.position, Vector2.left, 0.52f, whatIsWall))
+            {
+                return -1; // Mur à gauche
+            }
+        
+        return 0;
     }
+
 
     //Glisser sur le mur
     void WallSlide()
     {
-        if (CheckWall() && !détectionsol.touchesol)
+        int dir = GetWallJumpDirection();
+
+        if (dir != 0 && !détectionsol.touchesol)
         {
-            isWallSliding = true;
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, Mathf.Clamp(rb.linearVelocity.y, -wallSlideSpeed, float.MaxValue));
-        }
-        else
-        {
-            isWallSliding = false;
+
+            // On ne touche PAS à la vitesse X ici
+            rb.linearVelocity = new Vector2(
+                rb.linearVelocity.x,
+                Mathf.Clamp(rb.linearVelocity.y, -wallSlideSpeed, float.MaxValue)
+            );
         }
     }
 
+    void OnDrawGizmos()
+    {
+        if (wallCheck == null) return;
+
+        Gizmos.color = Color.red;
+        // Raycast à droite
+        Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.right * 0.52f);
+
+        Gizmos.color = Color.blue;
+        // Raycast à gauche
+        Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.left * 0.52f);
+    }
 
     // Update is called once per frame
     void Update()
     {
-            WallSlide();
+      WallSlide();
 
     }
 
     void FixedUpdate()
     {
-        rb.linearVelocity = new Vector2(direction.x * vitesse, rb.linearVelocity.y);
-
-        //Début du saut
-        if (jumpPressed && détectionsol.touchesol)
+        if (détectionsol.touchesol)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
+            jumpCount = 0; // reset du double jump
         }
-        jumpPressed = false;
+
+        // Déplacement horizontal physique
+        float targetSpeed = direction.x * vitesse;
+        float speedDiff = targetSpeed - rb.linearVelocity.x;
+
+        // Force horizontale
+        float accelRate = détectionsol.touchesol ? 50f : 20f;
+
+        rb.AddForce(Vector2.right * speedDiff * accelRate);
 
         // Saut variable
         if (rb.linearVelocity.y > 0) // le joueur monte
