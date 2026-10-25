@@ -6,6 +6,10 @@ using UnityEngine.UI;
 
 public class S_Move : MonoBehaviour
 {
+    [SerializeField] private float attackRange = 2f;
+    [SerializeField] private int attackDamage = 20;
+    [SerializeField] private LayerMask enemyLayer;
+
     //Le script de détection du sol
     public S_DétectionSol détectionsol;
 
@@ -17,7 +21,7 @@ public class S_Move : MonoBehaviour
     private Rigidbody2D rb;
 
     // Variables pour le saut
-    private bool jumpPressed;
+   
     private bool jumpHeld;
 
     public float jumpForce = 14f;
@@ -33,10 +37,13 @@ public class S_Move : MonoBehaviour
     [SerializeField] private Transform wallCheck;             // Petit point sur le côté du joueur
     public float wallCheckDistance = 0.5f;  // Distance du raycast
     [SerializeField] private LayerMask whatIsWall;            // Layer des murs
+
+    SpriteRenderer sr;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     //Pour courir
@@ -69,7 +76,6 @@ public class S_Move : MonoBehaviour
             return;
         }
 
-        jumpPressed = true;
         jumpHeld = true;
 
         int dir = GetWallJumpDirection();
@@ -91,7 +97,44 @@ public class S_Move : MonoBehaviour
         {
             rb.linearVelocity = new Vector2(rb.linearVelocity.x, jumpForce);
             jumpCount++;
-            Debug.Log(jumpCount);
+        }
+    }
+
+    // Pour attaquer
+    public void OnAttack(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            Attack();
+        }
+    }
+
+    private void Attack()
+    {
+        Debug.Log("Player attaque !");
+
+        // Direction selon l'orientation du joueur
+        Vector2 direction = transform.localScale.x > 0 ? Vector2.right : Vector2.left;
+
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, direction, attackRange, enemyLayer);
+
+        if (hit.collider != null)
+        {
+            S_Ennemie enemy = hit.collider.GetComponent<S_Ennemie>();
+
+            if (enemy != null)
+            {
+                enemy.TakeDamage(attackDamage);
+                Debug.Log("Enemy touché !");
+            }
+        }
+    }
+
+    public void OnCrouch(InputValue value)
+    {
+        if (value.isPressed)
+        {
+            Debug.Log("Accroupi !");
         }
     }
 
@@ -126,19 +169,6 @@ public class S_Move : MonoBehaviour
         }
     }
 
-    void OnDrawGizmos()
-    {
-        if (wallCheck == null) return;
-
-        Gizmos.color = Color.red;
-        // Raycast à droite
-        Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.right * 0.52f);
-
-        Gizmos.color = Color.blue;
-        // Raycast à gauche
-        Gizmos.DrawLine(wallCheck.position, wallCheck.position + Vector3.left * 0.52f);
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -171,5 +201,10 @@ public class S_Move : MonoBehaviour
                 rb.linearVelocity = new Vector2(rb.linearVelocity.x,0);
             }
         }
+
+        if (direction.x > 0)
+            sr.flipX = false;
+        else if (direction.x < 0)
+            sr.flipX = true;
     }
 }
