@@ -53,10 +53,16 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\6000.6.0f1\Editor\Data\BCLExtensions\TargetingPacks\netstandard2.1\analyzers\dotnet\roslyn4.0\cs\System.Text.Json.SourceGeneration.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Scripts\S_GD_DetMur.cs" />
     <Compile Include="Assets\Scripts\S_Ennemie.cs" />
+    <Compile Include="Assets\Scripts\DetecteVideGaucheDroite.cs" />
+    <Compile Include="Assets\Scripts\S_Araignée.cs" />
     <Compile Include="Assets\Scripts\S_Test.cs" />
+    <Compile Include="Assets\Scripts\DetecteurAraignée.cs" />
+    <Compile Include="Assets\Scripts\S_Araigné_DetMur.cs" />
     <Compile Include="Assets\Scripts\S_DétectionSol.cs" />
     <Compile Include="Assets\Scripts\S_Move.cs" />
+    <Compile Include="Assets\Scripts\MobGaucheDroite.cs" />
     <Compile Include="Assets\Scripts\S_Scroll.cs" />
   </ItemGroup>
   <ItemGroup>
