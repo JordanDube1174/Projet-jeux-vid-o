@@ -56,7 +56,10 @@
     <Compile Include="Assets\Scripts\S_GD_DetMur.cs" />
     <Compile Include="Assets\Scripts\S_Ennemie.cs" />
     <Compile Include="Assets\Scripts\DetecteVideGaucheDroite.cs" />
+    <Compile Include="Assets\Scripts\S_ControleurMainMenu.cs" />
     <Compile Include="Assets\Scripts\S_Araignée.cs" />
+    <Compile Include="Assets\Scripts\S_Compagnon.cs" />
+    <Compile Include="Assets\Scripts\S_Pause.cs" />
     <Compile Include="Assets\Scripts\S_Test.cs" />
     <Compile Include="Assets\Scripts\DetecteurAraignée.cs" />
     <Compile Include="Assets\Scripts\S_Chauvesouris.cs" />

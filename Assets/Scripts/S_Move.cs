@@ -35,7 +35,7 @@ public class S_Move : MonoBehaviour
     public float wallJumpDirection = 1f;    // -1 = gauche, 1 = droite
 
     [SerializeField] private Transform wallCheck;             // Petit point sur le côté du joueur
-    public float wallCheckDistance = 0.5f;  // Distance du raycast
+    public float wallCheckDistance = 0.7f;  // Distance du raycast
     [SerializeField] private LayerMask whatIsWall;            // Layer des murs
 
     SpriteRenderer sr;
@@ -140,11 +140,11 @@ public class S_Move : MonoBehaviour
 
     private int GetWallJumpDirection()
     {
-            if (Physics2D.Raycast(wallCheck.position, Vector2.right, 0.52f, whatIsWall))
+            if (Physics2D.Raycast(wallCheck.position, Vector2.right, 0.38f, whatIsWall))
             {
                 return 1; // Mur à droite
             }
-            else if (Physics2D.Raycast(wallCheck.position, Vector2.left, 0.52f, whatIsWall))
+            else if (Physics2D.Raycast(wallCheck.position, Vector2.left, 0.60f, whatIsWall))
             {
                 return -1; // Mur à gauche
             }
@@ -169,6 +169,29 @@ public class S_Move : MonoBehaviour
         }
     }
 
+    private void OnDrawGizmos()
+    {
+        if (wallCheck == null)
+            return;
+
+        // Raycast vers la droite
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(
+            wallCheck.position,
+            wallCheck.position + Vector3.right * 0.38f
+        );
+
+        // Raycast vers la gauche
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(
+            wallCheck.position,
+            wallCheck.position + Vector3.left * 0.60f
+        );
+
+        // Point de départ
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(wallCheck.position, 0.05f);
+    }
     // Update is called once per frame
     void Update()
     {
