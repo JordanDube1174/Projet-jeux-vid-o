@@ -1392,6 +1392,7 @@ MonoBehaviour:
   target: {fileID: 504158763}
   offset: {x: 0, y: 0, z: -10}
   smoothSpeed: 10
+<<<<<<< HEAD
 --- !u!1 &554834629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1627,6 +1628,8 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 619027731}
   m_CullTransparentMesh: 1
+=======
+>>>>>>> 7941c67f3c412197b9d6e114641f5c28d96c6b49
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -4076,6 +4079,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 931159254}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+<<<<<<< HEAD
 --- !u!1 &1884289913
 GameObject:
   m_ObjectHideFlags: 0
@@ -4258,6 +4262,8 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+=======
+>>>>>>> 7941c67f3c412197b9d6e114641f5c28d96c6b49
 --- !u!1 &2046792710
 GameObject:
   m_ObjectHideFlags: 0
@@ -4735,7 +4741,10 @@ SceneRoots:
   - {fileID: 1367803502}
   - {fileID: 47011410}
   - {fileID: 713781790}
+<<<<<<< HEAD
   - {fileID: 1407048419}
   - {fileID: 770005410}
   - {fileID: 1831835212}
   - {fileID: 1797061867}
+=======
+>>>>>>> 7941c67f3c412197b9d6e114641f5c28d96c6b49
