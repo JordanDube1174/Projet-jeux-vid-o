@@ -6,3 +6,5 @@ UserSettings/
 .vs/
 bin/
 obj/
+ProjectSettings/Physics2DSettings.asset
+Assets/Prefabs.meta
