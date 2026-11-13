@@ -12,9 +12,7 @@ public class S_Chauvesouris : MonoBehaviour
     [SerializeField]
     public Transform Joueur;
 
-     float hauteur = 2f;   //la hauteur est à modifier pour ch. mob
-    float amplitude = 1f;
-     float frequence = 3f;
+    
 
     float Xvelocity = 0;
     float Yvelocity = 0;
