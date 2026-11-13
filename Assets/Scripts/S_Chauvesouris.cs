@@ -57,7 +57,7 @@ public class S_Chauvesouris : MonoBehaviour
     {
         while (true)
         {
-            while (Yvelocity < 0.01f || transform.position.y < Joueur.transform.position.y -20)
+            while (Yvelocity < 0.01f || transform.position.y < Joueur.transform.position.y +2)
             {
                 Yvelocity += 0.0001f;
                 yield return new WaitForSeconds(0.005f);
@@ -66,7 +66,7 @@ public class S_Chauvesouris : MonoBehaviour
                     Yvelocity = 0.01f;
                 }
             }
-            while (Yvelocity > -0.01f || transform.position.y > Joueur.transform.position.y +20)
+            while (Yvelocity > -0.01f || transform.position.y > Joueur.transform.position.y +2)
             {
                 Yvelocity -= 0.0001f;
                 yield return new WaitForSeconds(0.005f);

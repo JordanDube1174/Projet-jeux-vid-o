@@ -319,6 +319,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: testneige1-removebg-preview_2
       objectReference: {fileID: 0}
+    - target: {fileID: 444899721764946333, guid: a7248eda63084b04fb2e4b1c2ba0772d, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
     - target: {fileID: 3433696309386057421, guid: a7248eda63084b04fb2e4b1c2ba0772d, type: 3}
       propertyPath: m_Points.m_Paths.Array.data[0].Array.size
       value: 49
