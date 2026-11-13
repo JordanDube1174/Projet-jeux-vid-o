@@ -1,0 +1,7 @@
+C:\Users\jordu\OneDrive - Cégep de La Pocatière\Session 3\Programmation\Travail pratique\Tp1\TP3 Objet Perdu\TP3 ObjetPerdu\TP3 ObjetPerdu\bin\Debug\TP3 ObjetPerdu.exe.config
+C:\Users\jordu\OneDrive - Cégep de La Pocatière\Session 3\Programmation\Travail pratique\Tp1\TP3 Objet Perdu\TP3 ObjetPerdu\TP3 ObjetPerdu\bin\Debug\TP3 ObjetPerdu.exe
+C:\Users\jordu\OneDrive - Cégep de La Pocatière\Session 3\Programmation\Travail pratique\Tp1\TP3 Objet Perdu\TP3 ObjetPerdu\TP3 ObjetPerdu\bin\Debug\TP3 ObjetPerdu.pdb
+C:\Users\jordu\OneDrive - Cégep de La Pocatière\Session 3\Programmation\Travail pratique\Tp1\TP3 Objet Perdu\TP3 ObjetPerdu\TP3 ObjetPerdu\obj\Debug\TP3 ObjetPerdu.csproj.AssemblyReference.cache
+C:\Users\jordu\OneDrive - Cégep de La Pocatière\Session 3\Programmation\Travail pratique\Tp1\TP3 Objet Perdu\TP3 ObjetPerdu\TP3 ObjetPerdu\obj\Debug\TP3 ObjetPerdu.csproj.CoreCompileInputs.cache
+C:\Users\jordu\OneDrive - Cégep de La Pocatière\Session 3\Programmation\Travail pratique\Tp1\TP3 Objet Perdu\TP3 ObjetPerdu\TP3 ObjetPerdu\obj\Debug\TP3 ObjetPerdu.exe
+C:\Users\jordu\OneDrive - Cégep de La Pocatière\Session 3\Programmation\Travail pratique\Tp1\TP3 Objet Perdu\TP3 ObjetPerdu\TP3 ObjetPerdu\obj\Debug\TP3 ObjetPerdu.pdb
